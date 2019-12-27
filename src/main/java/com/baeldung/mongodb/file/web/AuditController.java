@@ -1,6 +1,6 @@
 package com.baeldung.mongodb.file.web;
 
-import com.baeldung.mongodb.file.models.Auditory;
+import com.baeldung.mongodb.file.models.Audit;
 import com.baeldung.mongodb.file.services.AuditoryService;
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,27 +11,27 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
-public class AuditoryController {
+public class AuditController {
 
     @Autowired
     private AuditoryService auditoryService;
 
-    @PostMapping("/auditory/{entity}/{externalId}")
-    public ResponseEntity<Auditory> save(
+    @PostMapping("/audit/{entity}/{externalId}")
+    public ResponseEntity<Audit> save(
             @PathVariable String entity,
             @PathVariable Long externalId,
             @RequestBody String jsonBody) {
 
         Document document = Document.parse(jsonBody);
 
-        Auditory auditory = new Auditory();
-        auditory.setEntity(entity);
-        auditory.setExternalId(externalId);
-        auditory.setDocument(document);
-        auditory.setVersion(2L);
+        Audit audit = new Audit();
+        audit.setEntity(entity);
+        audit.setExternalId(externalId);
+        audit.setDocument(document);
+        audit.setVersion(2L);
 
-        auditory = auditoryService.add(auditory);
-        return ResponseEntity.ok(auditory);
+        audit = auditoryService.add(audit);
+        return ResponseEntity.ok(audit);
     }
 
 }
